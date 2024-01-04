@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://us456287f4dl"]
+
+[ext_resource type="Script" path="res://scripts/Level.gd" id="1_k4r6h"]
+[ext_resource type="PackedScene" uid="uid://8tb0cha80wnk" path="res://scenes/Eraser.tscn" id="1_mfdp5"]
+[ext_resource type="PackedScene" uid="uid://dgldkji0d5htm" path="res://scenes/Goal.tscn" id="3_b21u5"]
+[ext_resource type="PackedScene" uid="uid://cmnm48nsu82vd" path="res://scenes/Walls.tscn" id="4_r6ipm"]
+[ext_resource type="PackedScene" uid="uid://fla4rngbquco" path="res://scenes/Ball.tscn" id="5_dlc8g"]
+[ext_resource type="PackedScene" uid="uid://brv7dity8kovk" path="res://scenes/LineDrawer.tscn" id="6_qftm7"]
+[ext_resource type="PackedScene" uid="uid://raoxtvrvnyxj" path="res://scenes/Gui/Gui.tscn" id="7_5l3ek"]
+[ext_resource type="PackedScene" uid="uid://fmvfjnopcvou" path="res://scenes/Gui/WinPanel.tscn" id="8_a0dvd"]
+[ext_resource type="PackedScene" uid="uid://cw0hiauglrret" path="res://scenes/Gui/PauseMenu.tscn" id="9_3vjyr"]
+
+[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("ball", "coin_group", "trampoline_group", "goal")]
+script = ExtResource("1_k4r6h")
+ball = NodePath("Ball")
+coin_group = NodePath("Coins")
+trampoline_group = NodePath("Trampolines")
+goal = NodePath("Goal")
+goal_trampolines = 3
+max_trampolines = 5
+goal_time = 5
+goal_bounces = 5
+
+[node name="Eraser" parent="." instance=ExtResource("1_mfdp5")]
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Trampolines" type="Node2D" parent="."]
+
+[node name="Goal" parent="." instance=ExtResource("3_b21u5")]
+position = Vector2(123, 427)
+
+[node name="Walls" parent="." instance=ExtResource("4_r6ipm")]
+
+[node name="Ball" parent="." instance=ExtResource("5_dlc8g")]
+
+[node name="TempLine" parent="." node_paths=PackedStringArray("trampoline_group") instance=ExtResource("6_qftm7")]
+trampoline_group = NodePath("../Trampolines")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Gui" parent="CanvasLayer" instance=ExtResource("7_5l3ek")]
+mouse_force_pass_scroll_events = true
+metadata/_edit_use_anchors_ = true
+
+[node name="WinPanel" parent="CanvasLayer" instance=ExtResource("8_a0dvd")]
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_3vjyr")]

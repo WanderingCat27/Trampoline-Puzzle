@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://brv7dity8kovk"]
+
+[ext_resource type="Script" path="res://scripts/TrampolineDrawer.gd" id="1_3c8xg"]
+[ext_resource type="PackedScene" uid="uid://dajypoby6fkuu" path="res://scenes/Trampoline.tscn" id="2_hl61v"]
+
+[node name="TempLine" type="Line2D"]
+default_color = Color(1, 0.984314, 0, 0.105882)
+script = ExtResource("1_3c8xg")
+trampoline = ExtResource("2_hl61v")
+min_dist = 100
+max_dist = 200
+valid_color = Color(0, 0.772549, 0.164706, 0.243137)
+invalid_color = Color(1, 0, 0, 0.239216)

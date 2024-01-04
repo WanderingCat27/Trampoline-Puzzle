@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://dia0ghmjmqcqp"]
+
+[ext_resource type="Script" path="res://scripts/Level.gd" id="1_fppmw"]
+[ext_resource type="PackedScene" uid="uid://8tb0cha80wnk" path="res://scenes/Eraser.tscn" id="2_pu6hm"]
+[ext_resource type="PackedScene" uid="uid://dgldkji0d5htm" path="res://scenes/Goal.tscn" id="3_p0gmp"]
+[ext_resource type="PackedScene" uid="uid://3xbrad8v5h7j" path="res://scenes/Coin.tscn" id="3_ptpwc"]
+[ext_resource type="PackedScene" uid="uid://cmnm48nsu82vd" path="res://scenes/Walls.tscn" id="4_6e40s"]
+[ext_resource type="PackedScene" uid="uid://fla4rngbquco" path="res://scenes/Ball.tscn" id="5_xt1qu"]
+[ext_resource type="PackedScene" uid="uid://brv7dity8kovk" path="res://scenes/LineDrawer.tscn" id="6_pt8qc"]
+[ext_resource type="PackedScene" uid="uid://raoxtvrvnyxj" path="res://scenes/Gui/Gui.tscn" id="7_3kbdu"]
+[ext_resource type="PackedScene" uid="uid://fmvfjnopcvou" path="res://scenes/Gui/WinPanel.tscn" id="8_vhjqq"]
+[ext_resource type="PackedScene" uid="uid://cw0hiauglrret" path="res://scenes/Gui/PauseMenu.tscn" id="9_xx12s"]
+
+[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("ball", "coin_group", "trampoline_group", "goal")]
+script = ExtResource("1_fppmw")
+ball = NodePath("Ball")
+coin_group = NodePath("Coins")
+trampoline_group = NodePath("Trampolines")
+goal = NodePath("Goal")
+goal_trampolines = 8
+max_trampolines = 16
+goal_time = 20
+goal_bounces = 20
+
+[node name="Eraser" parent="." instance=ExtResource("2_pu6hm")]
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("3_ptpwc")]
+position = Vector2(250, 50)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("3_ptpwc")]
+position = Vector2(500, 50)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("3_ptpwc")]
+position = Vector2(750, 50)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("3_ptpwc")]
+position = Vector2(750, 400)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("3_ptpwc")]
+position = Vector2(500, 400)
+
+[node name="Coin6" parent="Coins" instance=ExtResource("3_ptpwc")]
+position = Vector2(250, 400)
+
+[node name="Coin7" parent="Coins" instance=ExtResource("3_ptpwc")]
+position = Vector2(375, 225)
+
+[node name="Coin8" parent="Coins" instance=ExtResource("3_ptpwc")]
+position = Vector2(625, 225)
+
+[node name="Trampolines" type="Node2D" parent="."]
+
+[node name="Goal" parent="." instance=ExtResource("3_p0gmp")]
+position = Vector2(1100, 225)
+
+[node name="Walls" parent="." instance=ExtResource("4_6e40s")]
+
+[node name="Ball" parent="." instance=ExtResource("5_xt1qu")]
+
+[node name="TempLine" parent="." node_paths=PackedStringArray("trampoline_group") instance=ExtResource("6_pt8qc")]
+trampoline_group = NodePath("../Trampolines")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Gui" parent="CanvasLayer" instance=ExtResource("7_3kbdu")]
+mouse_force_pass_scroll_events = true
+metadata/_edit_use_anchors_ = true
+
+[node name="WinPanel" parent="CanvasLayer" instance=ExtResource("8_vhjqq")]
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_xx12s")]

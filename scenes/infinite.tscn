@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://bje6gawglmn0x"]
+
+[ext_resource type="Script" path="res://scripts/Trampoline.gd" id="1_bao6r"]
+[ext_resource type="PackedScene" uid="uid://fla4rngbquco" path="res://scenes/Ball.tscn" id="2_jk6hn"]
+[ext_resource type="PackedScene" uid="uid://brv7dity8kovk" path="res://scenes/LineDrawer.tscn" id="3_jpuqn"]
+[ext_resource type="PackedScene" uid="uid://cmnm48nsu82vd" path="res://scenes/Walls.tscn" id="4_4isgk"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8hks8"]
+friction = 0.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_10vxd"]
+b = Vector2(300, 2.08165e-12)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Line2D" type="Line2D" parent="."]
+default_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
+script = ExtResource("1_bao6r")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Line2D" groups=["trampoline"]]
+physics_material_override = SubResource("PhysicsMaterial_8hks8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Line2D/StaticBody2D"]
+shape = SubResource("SegmentShape2D_10vxd")
+
+[node name="Ball" parent="." instance=ExtResource("2_jk6hn")]
+
+[node name="TempLine" parent="." node_paths=PackedStringArray("trampoline_group") instance=ExtResource("3_jpuqn")]
+trampoline_group = NodePath("..")
+
+[node name="Walls" parent="." instance=ExtResource("4_4isgk")]

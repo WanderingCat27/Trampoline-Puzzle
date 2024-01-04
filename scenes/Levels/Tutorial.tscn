@@ -1,0 +1,89 @@
+[gd_scene load_steps=15 format=3 uid="uid://k5km31je5ydm"]
+
+[ext_resource type="Script" path="res://scripts/Level.gd" id="1_wka2v"]
+[ext_resource type="PackedScene" uid="uid://fla4rngbquco" path="res://scenes/Ball.tscn" id="2_qdev3"]
+[ext_resource type="PackedScene" uid="uid://brv7dity8kovk" path="res://scenes/LineDrawer.tscn" id="3_62kj8"]
+[ext_resource type="PackedScene" uid="uid://cmnm48nsu82vd" path="res://scenes/Walls.tscn" id="4_rjktg"]
+[ext_resource type="PackedScene" uid="uid://3xbrad8v5h7j" path="res://scenes/Coin.tscn" id="5_5jetl"]
+[ext_resource type="PackedScene" uid="uid://raoxtvrvnyxj" path="res://scenes/Gui/Gui.tscn" id="6_j1cfb"]
+[ext_resource type="PackedScene" uid="uid://cw0hiauglrret" path="res://scenes/Gui/PauseMenu.tscn" id="8_sotdf"]
+[ext_resource type="PackedScene" uid="uid://fmvfjnopcvou" path="res://scenes/Gui/WinPanel.tscn" id="10_h8a6t"]
+[ext_resource type="PackedScene" uid="uid://dgldkji0d5htm" path="res://scenes/Goal.tscn" id="12_0hanv"]
+[ext_resource type="PackedScene" uid="uid://8tb0cha80wnk" path="res://scenes/Eraser.tscn" id="13_t6gtn"]
+[ext_resource type="Script" path="res://scripts/TutorialLine.gd" id="14_eit36"]
+[ext_resource type="Script" path="res://scripts/TutorialCoin.gd" id="15_ylgyj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ir56h"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ja52l"]
+radius = 20.0
+
+[node name="Tutorial" type="Node2D" node_paths=PackedStringArray("ball", "coin_group", "trampoline_group", "goal")]
+script = ExtResource("1_wka2v")
+ball = NodePath("Ball")
+coin_group = NodePath("Coins")
+trampoline_group = NodePath("Trampolines")
+goal = NodePath("Goal")
+goal_trampolines = 1
+max_trampolines = 3
+goal_time = 4
+goal_bounces = 1
+
+[node name="Ball" parent="." instance=ExtResource("2_qdev3")]
+position = Vector2(380, 51)
+
+[node name="TempLine" parent="." node_paths=PackedStringArray("trampoline_group") instance=ExtResource("3_62kj8")]
+trampoline_group = NodePath("../Trampolines")
+
+[node name="Walls" parent="." instance=ExtResource("4_rjktg")]
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("5_5jetl")]
+position = Vector2(433, 75)
+metadata/_edit_group_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Gui" parent="CanvasLayer" instance=ExtResource("6_j1cfb")]
+
+[node name="WinPanel" parent="CanvasLayer" instance=ExtResource("10_h8a6t")]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("8_sotdf")]
+
+[node name="Goal" parent="." instance=ExtResource("12_0hanv")]
+position = Vector2(872, 306)
+
+[node name="Trampolines" type="Node2D" parent="."]
+
+[node name="Eraser" parent="." instance=ExtResource("13_t6gtn")]
+
+[node name="Guide" type="Node2D" parent="."]
+
+[node name="TrampolineMarker" type="Line2D" parent="Guide"]
+points = PackedVector2Array(50, 250, 150, 350)
+default_color = Color(0, 0.611765, 0.368627, 0.156863)
+script = ExtResource("14_eit36")
+pointOne = Vector2(50, 290)
+pointTwo = Vector2(180, 390)
+
+[node name="Area2D" type="Area2D" parent="Guide/TrampolineMarker"]
+position = Vector2(-14, 14)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guide/TrampolineMarker/Area2D"]
+position = Vector2(103, 303)
+shape = SubResource("CircleShape2D_ir56h")
+
+[node name="CoinMarker" type="Area2D" parent="Guide" node_paths=PackedStringArray("coin")]
+script = ExtResource("15_ylgyj")
+coin = NodePath("../../Coins/Coin")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guide/CoinMarker"]
+shape = SubResource("CircleShape2D_ja52l")
+metadata/_edit_group_ = true
+
+[connection signal="area_entered" from="Guide/TrampolineMarker/Area2D" to="Guide/TrampolineMarker" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Guide/TrampolineMarker/Area2D" to="Guide/TrampolineMarker" method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="Guide/CoinMarker" to="Guide/CoinMarker" method="_on_body_entered"]

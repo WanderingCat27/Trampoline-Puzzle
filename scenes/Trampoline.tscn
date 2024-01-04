@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dajypoby6fkuu"]
+
+[ext_resource type="Script" path="res://scripts/Trampoline.gd" id="1_hxi3p"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_xwojt"]
+resource_local_to_scene = true
+
+[node name="Trampoline" type="Line2D"]
+width = 15.0
+default_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
+script = ExtResource("1_hxi3p")
+bounce_strength = -720
+
+[node name="StaticBody2D" type="Area2D" parent="." groups=["trampoline"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("ConvexPolygonShape2D_xwojt")
+
+[connection signal="body_entered" from="StaticBody2D" to="." method="_on_static_body_2d_body_entered"]
