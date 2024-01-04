@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvsgdht777qgx"]
+
+[ext_resource type="Script" path="res://scripts/SingleWall.gd" id="1_bspoc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fh14f"]
+rough = true
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t8mt6"]
+
+[node name="SingleWall" type="StaticBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_fh14f")
+script = ExtResource("1_bspoc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_t8mt6")

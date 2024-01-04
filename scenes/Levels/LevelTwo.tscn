@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://baq6ac1bfqpp8"]
+
+[ext_resource type="Script" path="res://scripts/Level.gd" id="1_mtf8k"]
+[ext_resource type="PackedScene" uid="uid://8tb0cha80wnk" path="res://scenes/Eraser.tscn" id="2_eahpc"]
+[ext_resource type="PackedScene" uid="uid://dgldkji0d5htm" path="res://scenes/Goal.tscn" id="3_bvbsl"]
+[ext_resource type="PackedScene" uid="uid://3xbrad8v5h7j" path="res://scenes/Coin.tscn" id="3_cnu3s"]
+[ext_resource type="PackedScene" uid="uid://cmnm48nsu82vd" path="res://scenes/Walls.tscn" id="4_ts3at"]
+[ext_resource type="PackedScene" uid="uid://fla4rngbquco" path="res://scenes/Ball.tscn" id="5_6rn88"]
+[ext_resource type="PackedScene" uid="uid://brv7dity8kovk" path="res://scenes/LineDrawer.tscn" id="6_26qhx"]
+[ext_resource type="PackedScene" uid="uid://raoxtvrvnyxj" path="res://scenes/Gui/Gui.tscn" id="7_j6ifw"]
+[ext_resource type="PackedScene" uid="uid://fmvfjnopcvou" path="res://scenes/Gui/WinPanel.tscn" id="8_t6vio"]
+[ext_resource type="PackedScene" uid="uid://cw0hiauglrret" path="res://scenes/Gui/PauseMenu.tscn" id="9_he57i"]
+
+[node name="BaseLevel" type="Node2D" node_paths=PackedStringArray("ball", "coin_group", "trampoline_group", "goal")]
+position = Vector2(1, 0)
+script = ExtResource("1_mtf8k")
+ball = NodePath("Ball")
+coin_group = NodePath("Coins")
+trampoline_group = NodePath("Trampolines")
+goal = NodePath("Goal")
+spawnPosition = Vector2(800, 100)
+goal_trampolines = 3
+max_trampolines = 5
+goal_time = 5
+goal_bounces = 5
+
+[node name="Eraser" parent="." instance=ExtResource("2_eahpc")]
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("3_cnu3s")]
+position = Vector2(812, 267)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("3_cnu3s")]
+position = Vector2(502, 417)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("3_cnu3s")]
+position = Vector2(216, 270)
+
+[node name="Trampolines" type="Node2D" parent="."]
+
+[node name="Goal" parent="." instance=ExtResource("3_bvbsl")]
+position = Vector2(100, 100)
+
+[node name="Walls" parent="." instance=ExtResource("4_ts3at")]
+
+[node name="Ball" parent="." instance=ExtResource("5_6rn88")]
+
+[node name="TempLine" parent="." node_paths=PackedStringArray("trampoline_group") instance=ExtResource("6_26qhx")]
+trampoline_group = NodePath("../Trampolines")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Gui" parent="CanvasLayer" instance=ExtResource("7_j6ifw")]
+mouse_force_pass_scroll_events = true
+metadata/_edit_use_anchors_ = true
+
+[node name="WinPanel" parent="CanvasLayer" instance=ExtResource("8_t6vio")]
+mouse_filter = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_he57i")]

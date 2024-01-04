@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://raoxtvrvnyxj"]
+
+[ext_resource type="Script" path="res://scripts/Score.gd" id="1_4bfvr"]
+[ext_resource type="Script" path="res://scripts/Time.gd" id="2_1srux"]
+[ext_resource type="Script" path="res://scripts/StartButton.gd" id="3_0hjdh"]
+[ext_resource type="Script" path="res://scripts/DrawButton.gd" id="4_f2pxe"]
+[ext_resource type="Script" path="res://scripts/Stats.gd" id="5_yxt7x"]
+
+[node name="Gui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+script = ExtResource("1_4bfvr")
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -42.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+script = ExtResource("2_1srux")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -204.0
+offset_bottom = 100.0
+grow_horizontal = 0
+
+[node name="Start" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Start
+"
+script = ExtResource("3_0hjdh")
+
+[node name="Draw" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Erase"
+script = ExtResource("4_f2pxe")
+
+[node name="Stats" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("5_yxt7x")

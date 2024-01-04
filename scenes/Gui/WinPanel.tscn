@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://fmvfjnopcvou"]
+
+[ext_resource type="Script" path="res://scripts/WinPanel.gd" id="1_80dcr"]
+[ext_resource type="Texture2D" uid="uid://ykp5ijoyqjxd" path="res://assets/star.png" id="2_x5kt1"]
+[ext_resource type="Script" path="res://scripts/NextLevel.gd" id="3_gqxje"]
+[ext_resource type="Script" path="res://scripts/ReloadLevel.gd" id="3_i1cbd"]
+[ext_resource type="Script" path="res://scripts/Menu.gd" id="4_mbpeb"]
+
+[node name="WinPanel" type="PanelContainer" node_paths=PackedStringArray("score_group")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -200.0
+offset_right = 325.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_80dcr")
+score_group = NodePath("HBoxContainer/Score")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Offset" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 50)
+layout_mode = 2
+
+[node name="Score" type="HBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Star" type="TextureRect" parent="HBoxContainer/Score"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("2_x5kt1")
+expand_mode = 2
+
+[node name="Star2" type="TextureRect" parent="HBoxContainer/Score"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("2_x5kt1")
+expand_mode = 2
+
+[node name="Star3" type="TextureRect" parent="HBoxContainer/Score"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("2_x5kt1")
+expand_mode = 2
+
+[node name="Offset2" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 10)
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Next" type="Button" parent="HBoxContainer/Buttons"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Next Level"
+script = ExtResource("3_gqxje")
+
+[node name="Restart" type="Button" parent="HBoxContainer/Buttons"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Restart"
+script = ExtResource("3_i1cbd")
+
+[node name="Menu" type="Button" parent="HBoxContainer/Buttons"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Menu"
+script = ExtResource("4_mbpeb")
